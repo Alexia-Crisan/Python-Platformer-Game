@@ -270,7 +270,7 @@ def handle_move(player, objects):
 
 def main(window):
     clock = pygame.time.Clock()
-    background, bg_image = get_background("Blue.png")
+    background, bg_image = get_background("Green.png")
 
     block_size = 96
     player = Player(100, 100, 50, 50)
@@ -292,7 +292,7 @@ def main(window):
                 break
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE and player.jump_count < 2:
+                if event.key == pygame.K_SPACE and player.jump_count < 2 and player.hit == False:
                     player.jump()
 
         player.loop(FPS)
