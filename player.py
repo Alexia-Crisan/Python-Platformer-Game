@@ -9,7 +9,7 @@ class Player(pygame.sprite.Sprite):
 
     def __init__(self, x, y, width, height):
         super().__init__()
-        self.SPRITES = load_sprite_sheets("MainCharacters", "NinjaFrog", 32, 32, True)
+        self.SPRITES = load_sprite_sheets("MainCharacters", "NinjaFrog", "", 32, 32, True)
 
         self.rect = pygame.Rect(x, y, width, height)
         self.x_vel = 0

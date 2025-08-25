@@ -3,6 +3,7 @@ from settings import WORLD_WIDTH, WORLD_HEIGHT, WIDTH, HEIGHT, FPS, PLAYER_VELOC
 from player import Player
 from objects.block import Block
 from objects.fire import Fire
+from objects.trophy import Trophy
 
 block_size = 96
 
@@ -12,6 +13,18 @@ def get_player():
     player = Player(spawn_x, spawn_y, 50, 50)
 
     return player
+
+def get_trophy():
+    trophy_width, trophy_height = 64, 64
+    x, y = 25, 13
+
+    trophy_x = (x - 1) * block_size - 16
+    trophy_y = (y - 1) * block_size + trophy_height 
+    
+    trophy = Trophy(trophy_x, trophy_y, trophy_width, trophy_height)
+    trophy.on()
+
+    return trophy
 
 def get_fire_traps():
     fire_coords = [(2, 9), (8, 22), (12, 27), (14, 27), (22, 27), (24, 27), 

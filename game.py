@@ -1,12 +1,12 @@
 import pygame
 from settings import WORLD_WIDTH, WORLD_HEIGHT, WIDTH, HEIGHT, FPS, PLAYER_VELOCITY
-from get_elements import get_player, get_fire_traps, get_blocks
+from get_elements import get_player, get_fire_traps, get_blocks, get_trophy
 from utils import get_background
 from player import Player
 from objects.block import Block
 from objects.fire import Fire
 
-def draw(window, background, bg_image, player, objects, offset_x, offset_y):
+def draw(window, background, bg_image, player, objects, trophy, offset_x, offset_y):
     window.fill((0, 0, 0))  
     
     for tile in background:
@@ -15,8 +15,11 @@ def draw(window, background, bg_image, player, objects, offset_x, offset_y):
     for obj in objects:
         obj.draw(window, offset_x, offset_y)
 
+    trophy.draw(window, offset_x, offset_y)  # aici desenezi trofeul
+
     player.draw(window, offset_x, offset_y)
     pygame.display.update()
+
 
 def handle_vertical_collision(player, objects, dy):
     collided_objects = []
@@ -73,9 +76,11 @@ def get_all_objects(block_size):
 
     objects = get_blocks()
 
+    trophy = get_trophy()
+
     objects.extend(fires) 
 
-    return player, fires, objects
+    return player, fires, trophy, objects
 
 
 def run_game(window):
@@ -85,7 +90,7 @@ def run_game(window):
     clock = pygame.time.Clock()
     background, bg_image = get_background("Green.png", (WORLD_WIDTH + 2) * block_size, (WORLD_HEIGHT + 2) * block_size)
     
-    player, fires, objects = get_all_objects(block_size)
+    player, fires, trophy, objects = get_all_objects(block_size)
 
     offset_x = 0
     offset_y = 0
@@ -106,8 +111,9 @@ def run_game(window):
 
         player.loop(FPS)
         for fire in fires: fire.loop()
+        trophy.loop()
         handle_move(player, objects)
-        draw(window, background, bg_image, player, objects, offset_x, offset_y)
+        draw(window, background, bg_image, player, objects, trophy, offset_x, offset_y)
 
         # horizontal scroll
         if ((player.rect.right - offset_x >= WIDTH - scroll_area_width and player.x_vel > 0) or
