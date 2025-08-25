@@ -1,5 +1,6 @@
 import pygame
-from settings import WIDTH, HEIGHT, FPS, PLAYER_VELOCITY
+from settings import WORLD_WIDTH, WORLD_HEIGHT, WIDTH, HEIGHT, FPS, PLAYER_VELOCITY
+from get_elements import get_player, get_fire_traps, get_blocks
 from utils import get_background
 from player import Player
 from objects.block import Block
@@ -65,27 +66,12 @@ def handle_move(player, objects):
         if obj and obj.name == "fire":
             player.make_hit()
 
-WORLD_WIDTH = 50
-WORLD_HEIGHT = 27
-
 def get_all_objects(block_size):
-    #spawn_x = (WORLD_WIDTH // 2) * block_size
-    #spawn_y = (WORLD_HEIGHT - 2) * block_size 
-    player = Player(100, 100, 50, 50)
+    player = get_player()
 
-    fire = Fire(10 * block_size, (WORLD_HEIGHT - 2) * block_size, 16, 32)
-    fire.on()
+    fire = get_fire_traps()
 
-    objects = []
-
-    # rama de blocuri
-    for x in range(WORLD_WIDTH):
-        objects.append(Block(x * block_size, 0, block_size)) #up
-        objects.append(Block(x * block_size, (WORLD_HEIGHT - 1) * block_size, block_size)) #down
-
-    for y in range(WORLD_HEIGHT):
-        objects.append(Block(0, y * block_size, block_size)) #left
-        objects.append(Block((WORLD_WIDTH - 1) * block_size, y * block_size, block_size)) #right
+    objects = get_blocks()
 
     objects.append(fire)
 

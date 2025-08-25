@@ -2,6 +2,8 @@ import pygame
 
 pygame.init()
 
+WORLD_WIDTH = 49
+WORLD_HEIGHT = 28
 WIDTH, HEIGHT = 1000, 600
 FPS = 60
 PLAYER_VELOCITY = 5
