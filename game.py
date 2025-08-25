@@ -65,26 +65,41 @@ def handle_move(player, objects):
         if obj and obj.name == "fire":
             player.make_hit()
 
-def run_game(window):
-    clock = pygame.time.Clock()
-    background, bg_image = get_background("Green.png", WIDTH, HEIGHT)
+WORLD_WIDTH = 50
+WORLD_HEIGHT = 27
 
-    block_size = 96
+def get_all_objects(block_size):
+    #spawn_x = (WORLD_WIDTH // 2) * block_size
+    #spawn_y = (WORLD_HEIGHT - 2) * block_size 
     player = Player(100, 100, 50, 50)
-    fire = Fire(100, HEIGHT - block_size - 64, 16, 32)
+
+    fire = Fire(10 * block_size, (WORLD_HEIGHT - 2) * block_size, 16, 32)
     fire.on()
 
-    floor = [
-        Block(i * block_size, HEIGHT - block_size, block_size)
-        for i in range(-WIDTH // block_size, WIDTH * 2 // block_size)
-    ]
+    objects = []
 
-    objects = [
-        *floor,
-        Block(0, HEIGHT - block_size * 2, block_size),
-        Block(block_size * 3, HEIGHT - block_size * 4, block_size),
-        fire,
-    ]
+    # rama de blocuri
+    for x in range(WORLD_WIDTH):
+        objects.append(Block(x * block_size, 0, block_size)) #up
+        objects.append(Block(x * block_size, (WORLD_HEIGHT - 1) * block_size, block_size)) #down
+
+    for y in range(WORLD_HEIGHT):
+        objects.append(Block(0, y * block_size, block_size)) #left
+        objects.append(Block((WORLD_WIDTH - 1) * block_size, y * block_size, block_size)) #right
+
+    objects.append(fire)
+
+    return player, fire, objects
+
+
+def run_game(window):
+
+    block_size = 96
+
+    clock = pygame.time.Clock()
+    background, bg_image = get_background("Green.png", (WORLD_WIDTH + 2) * block_size, (WORLD_HEIGHT + 2) * block_size)
+    
+    player, fire, objects = get_all_objects(block_size)
 
     offset_x = 0
     offset_y = 0
@@ -120,4 +135,3 @@ def run_game(window):
 
     pygame.quit()
     quit()
-
