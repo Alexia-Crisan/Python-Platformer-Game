@@ -69,13 +69,13 @@ def handle_move(player, objects):
 def get_all_objects(block_size):
     player = get_player()
 
-    fire = get_fire_traps()
+    fires = get_fire_traps()
 
     objects = get_blocks()
 
-    objects.append(fire)
+    objects.extend(fires) 
 
-    return player, fire, objects
+    return player, fires, objects
 
 
 def run_game(window):
@@ -85,7 +85,7 @@ def run_game(window):
     clock = pygame.time.Clock()
     background, bg_image = get_background("Green.png", (WORLD_WIDTH + 2) * block_size, (WORLD_HEIGHT + 2) * block_size)
     
-    player, fire, objects = get_all_objects(block_size)
+    player, fires, objects = get_all_objects(block_size)
 
     offset_x = 0
     offset_y = 0
@@ -105,7 +105,7 @@ def run_game(window):
                     player.jump()
 
         player.loop(FPS)
-        fire.loop()
+        for fire in fires: fire.loop()
         handle_move(player, objects)
         draw(window, background, bg_image, player, objects, offset_x, offset_y)
 

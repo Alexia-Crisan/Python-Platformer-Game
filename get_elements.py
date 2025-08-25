@@ -7,17 +7,30 @@ from objects.fire import Fire
 block_size = 96
 
 def get_player():
-    spawn_x = 4 * block_size + (block_size - 50) // 2
+    spawn_x = 3 * block_size + (block_size - 50) // 2
     spawn_y = 6 * block_size + (block_size - 50) // 2
     player = Player(spawn_x, spawn_y, 50, 50)
 
     return player
 
 def get_fire_traps():
-    fire = Fire(10 * block_size, (WORLD_HEIGHT - 2) * block_size, 16, 32)
-    fire.on()
+    fire_coords = [(2, 9), (8, 22), (12, 27), (14, 27), (22, 27), (24, 27), 
+                   (26, 27), (35, 27), (36, 27), (47, 27), (48, 27), (35, 27), 
+                   (19, 20), (31, 20), (10, 14), (14, 11), (31, 10), (24, 6), 
+                   (25, 5), (31, 6), (40, 9), (43, 3), (16, 3), (2, 6)]
 
-    return fire
+    fires = []
+    for (x, y) in fire_coords:
+        fire_width, fire_height = 16, 32
+
+        fire_x = (x - 1) * block_size + (block_size - fire_width - 16) // 2
+        fire_y = (y - 1) * block_size + fire_height 
+
+        fire = Fire(fire_x, fire_y, fire_width, fire_height)
+        fire.on()
+        fires.append(fire)
+
+    return fires
 
 def get_blocks():
     objects = []
