@@ -5,14 +5,16 @@ from player import Player
 from objects.block import Block
 from objects.fire import Fire
 
-def draw(window, background, bg_image, player, objects, offset_x):
+def draw(window, background, bg_image, player, objects, offset_x, offset_y):
+    window.fill((0, 0, 0))  
+    
     for tile in background:
-        window.blit(bg_image, tile)
+        window.blit(bg_image, (tile[0] - offset_x, tile[1] - offset_y))
 
     for obj in objects:
-        obj.draw(window, offset_x)
+        obj.draw(window, offset_x, offset_y)
 
-    player.draw(window, offset_x)
+    player.draw(window, offset_x, offset_y)
     pygame.display.update()
 
 def handle_vertical_collision(player, objects, dy):
@@ -85,9 +87,11 @@ def run_game(window):
     ]
 
     offset_x = 0
+    offset_y = 0
     scroll_area_width = 200
-    run = True
+    scroll_area_height = 200 
 
+    run = True
     while run:
         clock.tick(FPS)
 
@@ -102,12 +106,18 @@ def run_game(window):
         player.loop(FPS)
         fire.loop()
         handle_move(player, objects)
-        draw(window, background, bg_image, player, objects, offset_x)
+        draw(window, background, bg_image, player, objects, offset_x, offset_y)
 
-        # scroll background
+        # horizontal scroll
         if ((player.rect.right - offset_x >= WIDTH - scroll_area_width and player.x_vel > 0) or
            (player.rect.left - offset_x <= scroll_area_width and player.x_vel < 0)):
             offset_x += player.x_vel
 
+        # vertical scroll
+        if ((player.rect.bottom - offset_y >= HEIGHT - scroll_area_height and player.y_vel > 0) or
+           (player.rect.top - offset_y <= scroll_area_height and player.y_vel < 0)):
+            offset_y += player.y_vel
+
     pygame.quit()
     quit()
+
