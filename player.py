@@ -72,17 +72,21 @@ class Player(pygame.sprite.Sprite):
 
     def update_sprite(self):
         sprite_sheet = "idle"
+        min_speed = 1 
+
         if self.hit:
             sprite_sheet = "hit"
-        if self.y_vel != 0:
+        elif self.y_vel < -min_speed:
             if self.jump_count == 1:
                 sprite_sheet = "jump"
             elif self.jump_count == 2:
                 sprite_sheet = "double_jump"
-        elif self.y_vel > self.GRAVITY * 2:
-            sprite_sheet = "fall"        
-        elif self.x_vel != 0:
-            sprite_sheet = "run"
+        elif self.y_vel > min_speed:
+            sprite_sheet = "fall"
+        elif abs(self.x_vel) > min_speed:
+         sprite_sheet = "run"
+        else:
+            sprite_sheet = "idle"
 
         sprite_sheet_name = sprite_sheet + "_" + self.direction
         sprites = self.SPRITES[sprite_sheet_name]

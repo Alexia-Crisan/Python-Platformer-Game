@@ -4,6 +4,7 @@ from player import Player
 from objects.block import Block
 from objects.fire import Fire
 from objects.trophy import Trophy
+from objects.fruits import Fruit
 
 block_size = 96
 
@@ -22,9 +23,23 @@ def get_trophy():
     trophy_y = (y - 1) * block_size + trophy_height 
     
     trophy = Trophy(trophy_x, trophy_y, trophy_width, trophy_height)
-    trophy.on()
 
     return trophy
+
+def get_fruits():
+    fruit_width, fruit_height = 32, 32
+    
+    apple_x = (5 - 1) * block_size 
+    apple_y = (6 - 1) * block_size + fruit_height 
+
+    apple = Fruit(apple_x, apple_y, fruit_width, fruit_height, "Apple")
+
+    banana_x = (6 - 1) * block_size 
+    banana_y = (6 - 1) * block_size + fruit_height 
+    banana = Fruit(banana_x, banana_y, fruit_width, fruit_height, "Bananas")
+
+    return [apple, banana]
+    return []
 
 def get_fire_traps():
     fire_coords = [(2, 9), (8, 22), (12, 27), (14, 27), (22, 27), (24, 27), 

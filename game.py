@@ -15,7 +15,7 @@ def draw(window, background, bg_image, player, objects, trophy, offset_x, offset
     for obj in objects:
         obj.draw(window, offset_x, offset_y)
 
-    trophy.draw(window, offset_x, offset_y)  # aici desenezi trofeul
+    trophy.draw(window, offset_x, offset_y) 
 
     player.draw(window, offset_x, offset_y)
     pygame.display.update()
