@@ -17,10 +17,10 @@ def get_player():
 
 def get_trophy():
     trophy_width, trophy_height = 64, 64
-    x, y = 25, 13
+    x, y = 24, 12
 
-    trophy_x = (x - 1) * block_size - 16
-    trophy_y = (y - 1) * block_size + trophy_height 
+    trophy_x = x * block_size - 16
+    trophy_y = y * block_size + trophy_height 
     
     trophy = Trophy(trophy_x, trophy_y, trophy_width, trophy_height)
 

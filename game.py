@@ -8,8 +8,8 @@ from objects.fire import Fire
 from objects.trophy import Trophy
 from objects.fruits import Fruit
 
-def draw(window, background, bg_image, player, objects, trophy, fruits, offset_x, offset_y):
-    window.fill((0, 0, 0))  
+def draw(window, background, bg_image, player, objects, offset_x, offset_y, won = False, trophy = None):
+    window.fill((0, 0, 0))   
     
     for tile in background:
         window.blit(bg_image, (tile[0] - offset_x, tile[1] - offset_y))
@@ -17,14 +17,16 @@ def draw(window, background, bg_image, player, objects, trophy, fruits, offset_x
     for obj in objects:
         obj.draw(window, offset_x, offset_y)
 
-    trophy.draw(window, offset_x, offset_y) 
-
-    for fruit in fruits:
-        fruit.draw(window, offset_x, offset_y)
+    if won and trophy:
+        font = pygame.font.Font("Font/monogram.ttf", 100)
+        text = font.render("YOU WON!", True, (139, 69, 19))
+        text_x = trophy.rect.centerx - text.get_width() // 2 - offset_x
+        text_y = trophy.rect.top - text.get_height() - 10 - offset_y
+        window.blit(text, (text_x, text_y))
 
     player.draw(window, offset_x, offset_y)
-    pygame.display.update()
 
+    pygame.display.update()
 
 def handle_vertical_collision(player, objects, dy):
     collided_objects = []
@@ -55,7 +57,17 @@ def collide(player, objects, dx):
     player.update()
     return collided_objects
 
-def handle_move(player, objects):
+barrier_coords = [(23, 13), (23, 12), (24, 12), (25, 12), (25, 13)]
+
+def remove_barrier(objects):
+    block_size = 96
+
+    for (bx, by) in barrier_coords:
+        for obj in objects[:]:
+            if obj.rect.x == bx * block_size and obj.rect.y == by * block_size:
+                objects.remove(obj)
+
+def handle_move(player, objects, fruits):
     keys = pygame.key.get_pressed()
     player.x_vel = 0
 
@@ -73,6 +85,16 @@ def handle_move(player, objects):
     for obj in to_check:
         if obj and obj.name == "fire":
             player.make_hit()
+        elif obj and obj.name == "fruit":
+            if obj in objects:
+                objects.remove(obj)
+            if obj in fruits:
+                fruits.remove(obj)
+            player.collect_fruit()
+            print(player.fruit_count)
+
+            if player.fruit_count == 2: #checks if all fruits were collected to remove the trophy barrier
+                remove_barrier(objects)
 
 def get_all_objects(block_size):
     player = get_player()
@@ -81,7 +103,9 @@ def get_all_objects(block_size):
     trophy = get_trophy()
     fruits = get_fruits()
 
-    objects.extend(fires) 
+    objects.extend(fires)
+    objects.append(trophy)  
+    objects.extend(fruits) 
 
     return player, fires, trophy, fruits, objects
 
@@ -101,6 +125,8 @@ def run_game(window):
     scroll_area_height = 200 
 
     run = True
+    won = False
+  
     while run:
         clock.tick(FPS)
 
@@ -116,8 +142,12 @@ def run_game(window):
         for fire in fires: fire.loop()
         trophy.loop()
         for fruit in fruits: fruit.loop()
-        handle_move(player, objects)
-        draw(window, background, bg_image, player, objects, trophy, fruits, offset_x, offset_y)
+        handle_move(player, objects, fruits)
+
+        if player.fruit_count == 2 and player.rect.colliderect(trophy.rect):
+            won = True
+        draw(window, background, bg_image, player, objects, offset_x, offset_y, won, trophy)
+
 
         # horizontal scroll
         if ((player.rect.right - offset_x >= WIDTH - scroll_area_width and player.x_vel > 0) or

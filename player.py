@@ -21,6 +21,7 @@ class Player(pygame.sprite.Sprite):
         self.jump_count = 0
         self.hit = False
         self.hit_count = 0
+        self.fruit_count = 0
 
     def jump(self):
         self.y_vel = -self.GRAVITY * 8
@@ -36,6 +37,9 @@ class Player(pygame.sprite.Sprite):
     def make_hit(self):
         self.hit = True
         self.hit_count = 0
+
+    def collect_fruit(self):
+        self.fruit_count += 1
 
     def move_left(self, vel):
         self.x_vel = -vel
