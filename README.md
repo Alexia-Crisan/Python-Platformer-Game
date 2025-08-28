@@ -39,7 +39,7 @@ Here’s a glimpse of the game in action:
 
 ![Game](Pics/8.png)
 
-1. Use **arrow keys** and **spacebar** to move your character.
+1. Use **arrow keys** and **spacebar** to move the character.
 2. Avoid fire traps.
 3. Collect all 8 fruits.
 4. After collecting all fruits, the barrier around the trophy disappears.
