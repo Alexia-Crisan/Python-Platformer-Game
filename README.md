@@ -37,7 +37,7 @@ The game uses a grid layout with different elements represented by colors:
 
 Here’s a glimpse of the game in action:
 
-![Game](Pics/8.jpg)
+![Game](Pics/8.png)
 
 1. Use **arrow keys** and **spacebar** to move your character.
 2. Avoid fire traps.
