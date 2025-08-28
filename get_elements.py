@@ -29,17 +29,16 @@ def get_trophy():
 def get_fruits():
     fruit_width, fruit_height = 32, 32
     
-    apple_x = (5 - 1) * block_size 
+    apple_x = (5 - 1) * block_size + 13
     apple_y = (6 - 1) * block_size + fruit_height 
 
     apple = Fruit(apple_x, apple_y, fruit_width, fruit_height, "Apple")
 
-    banana_x = (6 - 1) * block_size 
+    banana_x = (3 - 1) * block_size + 13
     banana_y = (6 - 1) * block_size + fruit_height 
     banana = Fruit(banana_x, banana_y, fruit_width, fruit_height, "Bananas")
 
     return [apple, banana]
-    return []
 
 def get_fire_traps():
     fire_coords = [(2, 9), (8, 22), (12, 27), (14, 27), (22, 27), (24, 27), 

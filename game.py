@@ -1,12 +1,14 @@
 import pygame
 from settings import WORLD_WIDTH, WORLD_HEIGHT, WIDTH, HEIGHT, FPS, PLAYER_VELOCITY
-from get_elements import get_player, get_fire_traps, get_blocks, get_trophy
+from get_elements import get_player, get_fire_traps, get_blocks, get_trophy, get_fruits
 from utils import get_background
 from player import Player
 from objects.block import Block
 from objects.fire import Fire
+from objects.trophy import Trophy
+from objects.fruits import Fruit
 
-def draw(window, background, bg_image, player, objects, trophy, offset_x, offset_y):
+def draw(window, background, bg_image, player, objects, trophy, fruits, offset_x, offset_y):
     window.fill((0, 0, 0))  
     
     for tile in background:
@@ -16,6 +18,9 @@ def draw(window, background, bg_image, player, objects, trophy, offset_x, offset
         obj.draw(window, offset_x, offset_y)
 
     trophy.draw(window, offset_x, offset_y) 
+
+    for fruit in fruits:
+        fruit.draw(window, offset_x, offset_y)
 
     player.draw(window, offset_x, offset_y)
     pygame.display.update()
@@ -71,16 +76,14 @@ def handle_move(player, objects):
 
 def get_all_objects(block_size):
     player = get_player()
-
     fires = get_fire_traps()
-
     objects = get_blocks()
-
     trophy = get_trophy()
+    fruits = get_fruits()
 
     objects.extend(fires) 
 
-    return player, fires, trophy, objects
+    return player, fires, trophy, fruits, objects
 
 
 def run_game(window):
@@ -90,7 +93,7 @@ def run_game(window):
     clock = pygame.time.Clock()
     background, bg_image = get_background("Green.png", (WORLD_WIDTH + 2) * block_size, (WORLD_HEIGHT + 2) * block_size)
     
-    player, fires, trophy, objects = get_all_objects(block_size)
+    player, fires, trophy, fruits, objects = get_all_objects(block_size)
 
     offset_x = 0
     offset_y = 0
@@ -112,8 +115,9 @@ def run_game(window):
         player.loop(FPS)
         for fire in fires: fire.loop()
         trophy.loop()
+        for fruit in fruits: fruit.loop()
         handle_move(player, objects)
-        draw(window, background, bg_image, player, objects, trophy, offset_x, offset_y)
+        draw(window, background, bg_image, player, objects, trophy, fruits, offset_x, offset_y)
 
         # horizontal scroll
         if ((player.rect.right - offset_x >= WIDTH - scroll_area_width and player.x_vel > 0) or
