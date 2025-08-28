@@ -93,7 +93,7 @@ def handle_move(player, objects, fruits):
             player.collect_fruit()
             print(player.fruit_count)
 
-            if player.fruit_count == 2: #checks if all fruits were collected to remove the trophy barrier
+            if player.fruit_count == 8: #checks if all fruits were collected to remove the trophy barrier
                 remove_barrier(objects)
 
 def get_all_objects(block_size):
@@ -144,7 +144,7 @@ def run_game(window):
         for fruit in fruits: fruit.loop()
         handle_move(player, objects, fruits)
 
-        if player.fruit_count == 2 and player.rect.colliderect(trophy.rect):
+        if player.fruit_count == 8 and player.rect.colliderect(trophy.rect):
             won = True
         draw(window, background, bg_image, player, objects, offset_x, offset_y, won, trophy)
 

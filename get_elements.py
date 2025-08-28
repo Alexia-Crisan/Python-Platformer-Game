@@ -29,16 +29,40 @@ def get_trophy():
 def get_fruits():
     fruit_width, fruit_height = 32, 32
     
-    apple_x = (5 - 1) * block_size + 13
-    apple_y = (6 - 1) * block_size + fruit_height 
+    apple_x = (4 - 1) * block_size + 13
+    apple_y = (11 - 1) * block_size + fruit_height 
 
     apple = Fruit(apple_x, apple_y, fruit_width, fruit_height, "Apple")
 
-    banana_x = (3 - 1) * block_size + 13
-    banana_y = (6 - 1) * block_size + fruit_height 
+    banana_x = (9 - 1) * block_size + 13
+    banana_y = (24 - 1) * block_size + fruit_height 
     banana = Fruit(banana_x, banana_y, fruit_width, fruit_height, "Bananas")
 
-    return [apple, banana]
+    cherry_x = (28 - 1) * block_size + 13
+    cherry_y = (16 - 1) * block_size + fruit_height 
+    cherry = Fruit(cherry_x, cherry_y, fruit_width, fruit_height, "Cherries")
+
+    kiwi_x = (26 - 1) * block_size + 13
+    kiwi_y = (6 - 1) * block_size + fruit_height 
+    kiwi = Fruit(kiwi_x, kiwi_y, fruit_width, fruit_height, "Kiwi")
+
+    melon_x = (20 - 1) * block_size + 13
+    melon_y = (2 - 1) * block_size + fruit_height 
+    melon = Fruit(melon_x, melon_y, fruit_width, fruit_height, "Melon")
+
+    orange_x = (40 - 1) * block_size + 13
+    orange_y = (2 - 1) * block_size + fruit_height 
+    orange = Fruit(orange_x, orange_y, fruit_width, fruit_height, "Orange")
+
+    pineapple_x = (44 - 1) * block_size + 13
+    pineapple_y = (3 - 1) * block_size + fruit_height 
+    pineapple = Fruit(pineapple_x, pineapple_y, fruit_width, fruit_height, "Pineapple")
+
+    strawberry_x = (43 - 1) * block_size + 13
+    strawberry_y = (25 - 1) * block_size + fruit_height 
+    strawberry = Fruit(strawberry_x, strawberry_y, fruit_width, fruit_height, "Strawberry")
+
+    return [apple, banana, cherry, kiwi, melon, orange, pineapple, strawberry]
 
 def get_fire_traps():
     fire_coords = [(2, 9), (8, 22), (12, 27), (14, 27), (22, 27), (24, 27), 
