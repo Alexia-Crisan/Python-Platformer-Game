@@ -1,4 +1,4 @@
-# Python Platformer Game 🕹️
+# Python Platformer Game
 
 A simple **Python-based platformer game** where the player navigates a grid, collects hidden fruits, and reaches the trophy to win.  
 Built using **Python** and **Pygame**, this game is a fun way to practice programming logic, game design, and grid-based mechanics.
@@ -37,11 +37,7 @@ The game uses a grid layout with different elements represented by colors:
 
 Here’s a glimpse of the game in action:
 
-![Game1](Pics/1.jpg)
-![Game2](Pics/2.jpg)
-![Game3](Pics/5.jpg)
-![Game4](Pics/7.jpg)
-![Game5](Pics/6.jpg)
+![Game](Pics/7.jpg)
 
 1. Use **arrow keys** and **spacebar** to move your character.
 2. Avoid fire traps.
