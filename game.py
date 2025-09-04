@@ -135,7 +135,7 @@ def run_game(window):
                 run = False
                 break
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE and player.jump_count < 2 and not player.hit:
+                if (event.key == pygame.K_SPACE or event.key == pygame.K_UP) and player.jump_count < 2 and not player.hit:
                     player.jump()
 
         player.loop(FPS)
